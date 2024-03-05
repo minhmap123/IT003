@@ -23,36 +23,25 @@ void swap(float &a, float &b) {
     b = tmp;
 }
 
-int find_pivot_index(float arr[], int low, int high) {
-    float pivot = arr[(low + high) / 2];
+void QuickSort(float arr[], int low, int high) {
+    double pivot = arr[(low + high) / 2];
     int left = low,
         right = high;
     
-    while (true) {
-        while (left <= right && arr[left] < pivot) 
+    while (left < right) {
+        while (arr[left] < pivot) ++left;
+        while (arr[right] > pivot) --right;
+
+        if (left <= right) {
+            swap(arr[left], arr[right]);
             ++left;
-        while (right >= left && arr[right] > pivot)
             --right;
-        
-        if (left >= right) break;
+        }
 
-        swap(arr[left], arr[right]);
-        ++left; --right; 
-    }
-
-    // find correct position for pivot
-    swap(arr[left], arr[high]);
-
-    return left;    // return pivot's index
-}
-
-void QuickSort(float arr[], int low, int high) {
-    if (low < high) {
-        int key = find_pivot_index(arr, low, high);
-
-        // Sort 2 side of key
-        QuickSort(arr, low, key-1);
-        QuickSort(arr, key+1, high);
+        if (left < high) 
+            QuickSort(arr, left, high);
+        if (low < right) 
+            QuickSort(arr, low, right);
     }
 }
 
@@ -192,5 +181,7 @@ int main()
     }
 
     delete[] arr;   
+    delete[] leftArray;
+    delete[] rightArray;
 	return 0;
 }
