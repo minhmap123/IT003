@@ -153,7 +153,6 @@ int main()
     while (true) {
         GUI();
         cin >> sort_case;
-        cout << sort_case << endl;
         if (sort_case < '1' || sort_case > '4') break;
 
         ifstream inputFile("test_case.txt");
